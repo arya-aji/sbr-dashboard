@@ -63,7 +63,6 @@ export async function fetchSampleById(id: string) {
       ...sample
     }));
 
-    console.log(sample); // Invoice is an empty array []
     return sample[0];
   } catch (error) {
     console.error('Database Error:', error);
