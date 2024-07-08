@@ -14,7 +14,7 @@ export async function GET(request, { params }) {
 
   try {
     await client.connect();
-    const result = await client.query('SELECT * FROM samples WHERE idsbr = $1', [id]);
+    const result = await client.query('SELECT * FROM samples WHERE (idsbr = $1 AND tipe = $2 AND pcl = $3)', [id, 'PENGGANTI', '']);
     await client.end();
 
     if (result.rows.length === 0) {

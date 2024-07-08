@@ -51,26 +51,20 @@ export async function fetchSamplePages(query: string) {
   }
 }
 
-export async function fetchInvoiceById(id: string) {
+export async function fetchSampleById(id: string) {
   try {
-    const data = await sql<InvoiceForm>`
-      SELECT
-        invoices.id,
-        invoices.customer_id,
-        invoices.amount,
-        invoices.status
-      FROM invoices
-      WHERE invoices.id = ${id};
+    const data = await sql<Sample>`
+      SELECT *
+      FROM samples
+      WHERE idsbr = ${id};
     `;
 
-    const invoice = data.rows.map((invoice) => ({
-      ...invoice,
-      // Convert amount from cents to dollars
-      amount: invoice.amount / 100,
+    const sample = data.rows.map((sample) => ({
+      ...sample
     }));
 
-    console.log(invoice); // Invoice is an empty array []
-    return invoice[0];
+    console.log(sample); // Invoice is an empty array []
+    return sample[0];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoice.');

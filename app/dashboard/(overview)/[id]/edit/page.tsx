@@ -1,16 +1,16 @@
 import Form from '@/app/ui/invoices/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchInvoiceById, fetchSamples } from '@/app/lib/data';
+import { fetchSampleById, fetchSamples } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
-    const [invoice, samples] = await Promise.all([
-        fetchInvoiceById(id),
+    const [sampleId, samples] = await Promise.all([
+        fetchSampleById(id),
         fetchSamples(),
     ]);
 
-    if (!invoice) {
+    if (!sampleId) {
         notFound();
     }
 
@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     },
                 ]}
             />
-            <Form samples={samples} />
+            <Form sampleId={sampleId} samples={samples} />
         </main>
     );
 }
