@@ -86,3 +86,31 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+export type Sample = {
+  idsbr: string;
+  kdprov: string;
+  kdkab: string;
+  kdkec: string;
+  kddesa: string;
+  nmprov: string;
+  nmkab: string;
+  kd: string;
+  kdpcl: string;
+  nmdesa: string;
+  umk_umb: string; // Note: Adjusted to avoid slash in property name
+  nama: string;
+  alamat: string;
+  nomor_telepon: string;
+  email: string;
+  kbli: string;
+  kategori: string;
+  aktivitas: string;
+  pcl: string;
+  pml: string;
+  email_pcl: string;
+  email_pml: string;
+  status: string;
+  tipe: string;
+  time: string;
+};
