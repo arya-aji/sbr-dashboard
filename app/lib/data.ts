@@ -20,8 +20,8 @@ export async function fetchFilteredSample(
         (idsbr ILIKE ${`%${query}%`} OR
         nama ILIKE ${`%${query}%`} OR
         pcl ILIKE ${`%${query}%`})
-        AND tipe = 'UTAMA'
-      ORDER BY samples.time DESC
+        AND pcl != ''
+      ORDER BY idsbr ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
@@ -40,7 +40,7 @@ export async function fetchSamplePages(query: string) {
       (idsbr ILIKE ${`%${query}%`} OR
       nama ILIKE ${`%${query}%`} OR
       pcl ILIKE ${`%${query}%`})
-      AND tipe = 'UTAMA'
+      AND pcl != ''
   `;
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);

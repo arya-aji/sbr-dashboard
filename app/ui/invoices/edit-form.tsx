@@ -3,7 +3,8 @@
 import { Sample } from '@/app/lib/definitions';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent, useCallback } from 'react';
+import { updateSample } from '@/app/lib/actions';
 
 export default function EditSampleForm({
   sampleId,
@@ -22,6 +23,11 @@ export default function EditSampleForm({
   const [isDataFetched, setIsDataFetched] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
+  const [idsbrAwal, setIdSbrAwal] = useState('');
+  const [fPcl, setFPcl] = useState('');
+  const [fPml, setFPml] = useState('');
+  const [emailPcl, setEmailPcl] = useState('');
+  const [emailPml, setEmailPml] = useState('');
 
   const handleButtonClick = () => {
     if (!userInput.trim()) {
@@ -45,9 +51,7 @@ export default function EditSampleForm({
         throw new Error('Failed to fetch sample.');
       }
       const sample = await response.json();
-      console.log(sample);
       if (sample) {
-        console.log("haha");
         setNamaGanti(sample.nama); // Update namaGanti state with the fetched name
         setIdGanti(sample.idsbr);
         setAlamatGanti(sample.alamat);
@@ -76,16 +80,60 @@ export default function EditSampleForm({
     }
   };
 
-  const handleConfirm = () => {
-    // Submit form or perform desired action
-    console.log('Form submitted');
-    setIsModalOpen(false);
-    setIsSuccessPopupOpen(true);
+  // const handleConfirm = useCallback(async () => {
+  //   try {
+  //     const idsbrAwal = (document.getElementById('idsbrAwal') as HTMLInputElement)?.value;
+  //     const idGanti = (document.getElementById('idGanti') as HTMLInputElement)?.value;
+  //     const fPcl = (document.getElementById('fPcl') as HTMLInputElement)?.value;
+  //     const fPml = (document.getElementById('fPml') as HTMLInputElement)?.value;
+  //     const emailPcl = (document.getElementById('emailPcl') as HTMLInputElement)?.value;
+  //     const emailPml = (document.getElementById('emailPml') as HTMLInputElement)?.value;
 
-    // Optionally, close the success popup after a delay
-    setTimeout(() => {
-      setIsSuccessPopupOpen(false);
-    }, 3000); // Close after 3 seconds
+  //     console.log('Const assigned:', { idsbrAwal, idGanti, fPcl, fPml, emailPcl, emailPml });
+
+  //     // Check if all required elements are found and values are not empty
+  //     if (!idsbrAwal || !idGanti || !fPcl || !fPml || !emailPcl || !emailPml) {
+  //       throw new Error('One or more input fields are empty or not found.');
+  //     }
+
+  //     console.log('Calling updateSample...');
+  //     const result = await updateSample(idsbrAwal, idGanti, fPcl, fPml, emailPcl, emailPml);
+  //     console.log('updateSample executed successfully');
+  //     console.log(result);
+
+  //     setIsModalOpen(false);
+  //     setIsSuccessPopupOpen(true);
+
+  //     // Optionally, close the success popup after a delay
+  //     setTimeout(() => {
+  //       setIsSuccessPopupOpen(false);
+  //     }, 3000); // Close after 3 seconds
+  //   } catch (error) {
+  //     console.error('Error updating sample:', error);
+  //     alert('Error updating sample.');
+  //   }
+  // }, []);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const idsbrAwal = (document.getElementById('idsbrAwal') as HTMLInputElement)?.value;
+    const idGanti = (document.getElementById('idGanti') as HTMLInputElement)?.value;
+    const fPcl = (document.getElementById('fPcl') as HTMLInputElement)?.value;
+    const fPml = (document.getElementById('fPml') as HTMLInputElement)?.value;
+    const emailPcl = (document.getElementById('emailPcl') as HTMLInputElement)?.value;
+    const emailPml = (document.getElementById('emailPml') as HTMLInputElement)?.value;
+
+    console.log("handleSubmitted");
+
+    try {
+      console.log("enter try");
+      const result = await updateSample(idsbrAwal, idGanti, fPcl, fPml, emailPcl, emailPml);
+      // Optionally, show success message or handle UI updates
+      console.log(result);
+    } catch (error) {
+      console.error('Error updating sample:', error);
+      // Handle error state or show error message
+    }
   };
 
   useEffect(() => {
@@ -94,7 +142,7 @@ export default function EditSampleForm({
 
 
   return (
-    <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6" >
       <style jsx>{`
         @keyframes rainbow {
           0% { background-color: red; }
@@ -176,6 +224,16 @@ export default function EditSampleForm({
               disabled
             />
           </div>
+          <div className="relative mt-2 rounded-md">
+            <input
+              id="emailPcl"
+              type='hidden'
+              name="emailPcl"
+              value={sampleId.email_pcl}
+              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              disabled
+            />
+          </div>
         </div>
         <div className="mb-4">
           <label htmlFor="fPml" className="mb-2 block text-sm font-medium">
@@ -186,6 +244,16 @@ export default function EditSampleForm({
               id="fPml"
               name="fPml"
               value={sampleId.pml}
+              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              disabled
+            />
+          </div>
+          <div className="relative mt-2 rounded-md">
+            <input
+              id="emailPml"
+              type='hidden'
+              name="emailPml"
+              value={sampleId.email_pml}
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               disabled
             />
@@ -297,13 +365,14 @@ export default function EditSampleForm({
         >
           Cancel
         </Link>
-        <Button type="button" className={`${!isDataFetched && 'btn-disabled'}`} disabled={!isDataFetched} onClick={() => setIsModalOpen(true)}>
+        {/* <Button type="button" className={`${!isDataFetched && 'btn-disabled'}`} disabled={!isDataFetched} onClick={() => setIsModalOpen(true)}> */}
+        <Button type="submit" className={`${!isDataFetched && 'btn-disabled'}`} disabled={!isDataFetched}>
           Ganti Sampel
         </Button>
       </div>
 
       {/* Confirmation Modal */}
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6">
             <h2 className="text-lg font-medium mb-4">Confirm Change</h2>
@@ -317,7 +386,7 @@ export default function EditSampleForm({
                 Cancel
               </button>
               <button
-                type="button"
+                type="submit"
                 onClick={handleConfirm}
                 className="px-4 py-2 bg-green-500 text-white rounded-lg"
               >
@@ -326,10 +395,10 @@ export default function EditSampleForm({
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Success Popup */}
-      {isSuccessPopupOpen && (
+      {/* {isSuccessPopupOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6">
             <h2 className="text-lg font-medium mb-4">Success</h2>
@@ -345,7 +414,7 @@ export default function EditSampleForm({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </form>
   );
 
