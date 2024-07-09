@@ -31,7 +31,7 @@ export default async function SampleTable({
                     </div>
                     <p className="text-sm text-gray-500" style={{ maxWidth: '100%', wordWrap: 'break-word' }}>{sample.alamat}</p>
                   </div>
-                  <SampleStatus status={sample.tipe} />
+                  <SampleStatus tipe={sample.tipe} status={sample.status} />
                 </div>
               </div>
             ))}
@@ -61,7 +61,7 @@ export default async function SampleTable({
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      <SampleStatus status={sample.idsbr} />
+                      <SampleStatus tipe={sample.tipe} status={sample.status} />
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
