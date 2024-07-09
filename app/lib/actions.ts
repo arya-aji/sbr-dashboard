@@ -20,6 +20,7 @@ export async function updateSample(
       SET 
         status = CASE
           WHEN idsbr = ${idsbrAwal} THEN '1'
+          WHEN idsbr = ${idGanti} THEN '2'
           ELSE status
         END,
         pcl = CASE
