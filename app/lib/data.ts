@@ -150,7 +150,7 @@ export async function fetchFilteredUpdate(
         nama ILIKE ${`%${query}%`} OR
         pcl ILIKE ${`%${query}%`})
         AND status = '2'
-      ORDER BY idsbr ASC
+      ORDER BY time ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 

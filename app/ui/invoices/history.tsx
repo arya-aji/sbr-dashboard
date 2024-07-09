@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { UpdateInvoice } from '@/app/ui/invoices/buttons';
 import SampleStatus from '@/app/ui/invoices/status';
 import DigantiStatus from '@/app/ui/invoices/diganti';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredUpdate } from '@/app/lib/data';
 
 export default async function SampleTable({
@@ -72,7 +71,7 @@ export default async function SampleTable({
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      <DigantiStatus status={sample.status} idsbr={sample.idsbr} TIPE={sample.TIPE} />
+                      <DigantiStatus status={sample.status} idsbr={sample.idsbr} tipe={sample.tipe} />
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
