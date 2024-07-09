@@ -58,3 +58,30 @@ export async function updateSample(
     throw error;  // Rethrow the error to propagate it to the caller
   }
 }
+
+export async function updateHistory(
+  idSelected: string,
+) {
+  try {
+    console.log("Updating history...");
+    
+    const query = sql`
+      UPDATE samples
+      SET 
+        status = '3'
+      WHERE idsbr = ${idSelected};
+    `;
+
+    const result = await query;
+
+    console.log("Update successful:", result);
+    
+    // Assuming these are functions provided by your framework
+    revalidatePath('/dashboard/history');  // Verify the usage of this function
+    redirect('/dashboard/history');  // Verify the usage of this function
+  } catch (error) {
+    console.error('Error updating sample:', error);
+    // Handle error gracefully or throw it for higher-level error handling
+    throw error;  // Rethrow the error to propagate it to the caller
+  }
+}

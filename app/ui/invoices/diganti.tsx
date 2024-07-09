@@ -8,6 +8,7 @@ export default function Digantitatus({ status, idsbr, tipe }: { status: string, 
         'inline-flex items-center rounded-full px-2 py-1 text-sm',
         {
           'bg-red-500 text-white': status === '1',
+          'bg-green-400 text-white': status === '3',
           'bg-green-500 text-white': status === '2',
           'bg-yellow-500 text-white': tipe === 'PENGGANTI' && status === '0',
         },
@@ -18,16 +19,22 @@ export default function Digantitatus({ status, idsbr, tipe }: { status: string, 
           {idsbr}
         </>
       ) : null}
-      {status === '2' ? (
-        <>
-          {idsbr}
-        </>
-      ) : null}
       {status === '1' ? (
         <>
           {idsbr}
         </>
       ) : null}
+      {status === '2' ? (
+        <>
+          {idsbr}
+        </>
+      ) : null}
+      {status === '3' ? (
+        <>
+          {idsbr}
+        </>
+      ) : null}
+
     </span>
   );
 }

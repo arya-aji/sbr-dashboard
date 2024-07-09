@@ -10,6 +10,7 @@ export default function SampleStatus({ tipe, status }: { tipe: string, status: s
           'bg-blue-500 text-white': status === '0',
           'bg-red-500 text-white': status === '1',
           'bg-green-500 text-white': status === '2',
+          'bg-green-400 text-white': status === '3',
         },
       )}
     >
@@ -18,16 +19,22 @@ export default function SampleStatus({ tipe, status }: { tipe: string, status: s
           UTAMA
         </>
       ) : null}
-      {status === '2' ? (
-        <>
-          PENGGANTI
-        </>
-      ) : null}
       {status === '1' ? (
         <>
           TERGANTIKAN
         </>
       ) : null}
+      {status === '2' ? (
+        <>
+          PENGGANTI
+        </>
+      ) : null}
+      {status === '3' ? (
+        <>
+          PENGGANTI
+        </>
+      ) : null}
+
     </span>
   );
 }

@@ -129,7 +129,7 @@ export default function EditSampleForm({
       console.log("enter try");
       const result = await updateSample(idsbrAwal, idGanti, fPcl, fPml, emailPcl, emailPml);
       // Optionally, show success message or handle UI updates
-      console.log(result);
+      console.log("deleted");
     } catch (error) {
       console.error('Error updating sample:', error);
       // Handle error state or show error message
