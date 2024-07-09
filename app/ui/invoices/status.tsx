@@ -35,7 +35,7 @@ export default function SampleStatus({ tipe, status }: { tipe: string, status: s
       ) : null}
       {tipe !== 'UTAMA' && tipe !== 'PENGGANTI' ? (
         <>
-          {status}
+          {tipe}
         </>
       ) : null}
     </span>
