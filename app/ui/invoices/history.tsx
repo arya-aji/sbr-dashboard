@@ -56,7 +56,10 @@ export default async function SampleTable({
                   Petugas
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Status
+                  E-mail PCL
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  E-mail PML
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
@@ -81,11 +84,14 @@ export default async function SampleTable({
                     {sample.pcl}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    <SampleStatus tipe={sample.tipe} status={sample.status} />
+                    {sample.email_pcl}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {sample.email_pml}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateInvoice id={sample.idsbr} />
+                      {/* <UpdateInvoice id={sample.idsbr} /> */}
                     </div>
                   </td>
                 </tr>
