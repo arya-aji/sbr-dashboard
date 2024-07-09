@@ -22,6 +22,11 @@ export default function Digantitatus({ status, idsbr }: { status: string, idsbr:
           {idsbr}
         </>
       ) : null}
+      {status === '2' ? (
+        <>
+          {idsbr}
+        </>
+      ) : null}
     </span>
   );
 }

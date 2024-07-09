@@ -18,7 +18,7 @@ export default function SampleStatus({ tipe, status }: { tipe: string, status: s
           UTAMA
         </>
       ) : null}
-      {tipe === 'PENGGANTI' && status === '0' ? (
+      {tipe === 'PENGGANTI' && status === '2' ? (
         <>
           PENGGANTI
         </>

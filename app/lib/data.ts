@@ -134,3 +134,48 @@ export async function fetchPenggantiPages(query: string) {
     throw new Error('Failed to fetch total number of invoices.');
   }
 }
+
+export async function fetchFilteredUpdate(
+  query: string,
+  currentPage: number,
+) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const samples = await sql<Sample>`
+      SELECT *
+      FROM samples
+      WHERE
+        (idsbr ILIKE ${`%${query}%`} OR
+        nama ILIKE ${`%${query}%`} OR
+        pcl ILIKE ${`%${query}%`})
+        AND status = '2'
+      ORDER BY idsbr ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return samples.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetchFilteredSample.');
+  }
+}
+
+export async function fetchUpdatePages(query: string) {
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM samples
+    WHERE
+      (idsbr ILIKE ${`%${query}%`} OR
+      nama ILIKE ${`%${query}%`} OR
+      pcl ILIKE ${`%${query}%`})
+      AND status = '2'
+  `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of invoices.');
+  }
+}
