@@ -1,14 +1,15 @@
 import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
-export default function Digantitatus({ status, idsbr }: { status: string, idsbr: string }) {
+export default function Digantitatus({ status, idsbr, tipe }: { status: string, idsbr: string, tipe: string }) {
   return (
     <span
       className={clsx(
         'inline-flex items-center rounded-full px-2 py-1 text-sm',
         {
-          'text-black': status === '0',
           'bg-red-500 text-white': status === '1',
+          'bg-green-500 text-white': status === '2',
+          'bg-yellow-500 text-white': tipe === 'PENGGANTI' && status === '0',
         },
       )}
     >
@@ -17,12 +18,12 @@ export default function Digantitatus({ status, idsbr }: { status: string, idsbr:
           {idsbr}
         </>
       ) : null}
-      {status === '1' ? (
+      {status === '2' ? (
         <>
           {idsbr}
         </>
       ) : null}
-      {status === '2' ? (
+      {status === '1' ? (
         <>
           {idsbr}
         </>

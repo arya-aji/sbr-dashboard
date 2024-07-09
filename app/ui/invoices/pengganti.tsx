@@ -1,6 +1,7 @@
 import { UpdateInvoice } from '@/app/ui/invoices/buttons';
 import SampleStatus from '@/app/ui/invoices/status';
 import { fetchFilteredPengganti } from '@/app/lib/data';
+import DigantiStatus from '@/app/ui/invoices/diganti';
 
 export default async function SampleTable({
   query,
@@ -61,7 +62,7 @@ export default async function SampleTable({
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      <SampleStatus tipe={sample.idsbr} status={sample.status} />
+                      <DigantiStatus status={sample.status} idsbr={sample.idsbr} tipe={sample.tipe} />
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">

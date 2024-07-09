@@ -7,35 +7,25 @@ export default function SampleStatus({ tipe, status }: { tipe: string, status: s
       className={clsx(
         'inline-flex items-center rounded-full px-2 py-1 text-sm',
         {
-          'bg-blue-500 text-white': tipe === 'UTAMA',
-          'bg-red-500 text-white': tipe === 'PENGGANTI',
-          'bg-yellow-500 text-black': tipe !== 'UTAMA',
+          'bg-blue-500 text-white': status === '0',
+          'bg-red-500 text-white': status === '1',
+          'bg-green-500 text-white': status === '2',
         },
       )}
     >
-      {tipe === 'UTAMA' && status === '0' ? (
+      {status === '0' ? (
         <>
           UTAMA
         </>
       ) : null}
-      {tipe === 'PENGGANTI' && status === '2' ? (
+      {status === '2' ? (
         <>
           PENGGANTI
         </>
       ) : null}
-      {tipe === 'UTAMA' && status === '1' ? (
+      {status === '1' ? (
         <>
           TERGANTIKAN
-        </>
-      ) : null}
-      {tipe === 'PENGGANTI' && status === '1' ? (
-        <>
-          TERGANTIKAN
-        </>
-      ) : null}
-      {tipe !== 'UTAMA' && tipe !== 'PENGGANTI' ? (
-        <>
-          {tipe}
         </>
       ) : null}
     </span>
